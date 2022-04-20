@@ -447,7 +447,7 @@ img {
                 <input type="text" name="Username" placeholder="Username"/>
                 <input type="email" name="email" placeholder="Email"/>
                 <input type="text" name="phone" placeholder="Mobile No"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <input type="button" name="next" class="next action-button" value="Next" onclick="shuffle()"/>
             </fieldset>
             <fieldset style="width: 70%;">
                 <div class="left-align">
@@ -456,20 +456,20 @@ img {
                 <hr>
                 <h3 class="fs-subtitle">Select any three images</h3>
                 <div class="center-div">
-                    <div class="dum" onclick="myFunction(1)" tabindex="1"><img src="{% static 'images/1.jpg' %}"></div>
-                    <div class="dum" onclick="myFunction(2)" tabindex="1"><img src="{% static 'images/2.jpg' %}"></div>
-                    <div class="dum" onclick="myFunction(3)" tabindex="1"><img src="{% static 'images/3.jpg' %}"></div>
+                    <div class="dum"  onclick="myFunction(1) " tabindex="1"><img id="selectImage1"></div>
+                    <div class="dum" onclick="myFunction(2)" tabindex="1"><img id="selectImage2"></div>
+                    <div class="dum" onclick="myFunction(3)" tabindex="1"><img id="selectImage3"></div>
                 </div>
                 <div class="center-div">
-                    <div class="dum" onclick="myFunction(4)" tabindex="1"><img src="{% static 'images/4.jpeg' %}"></div>
-                    <div class="dum" onclick="myFunction(5)" tabindex="1"><img src="{% static 'images/5.jpg' %}"></div>
-                    <div class="dum" onclick="myFunction(6)" tabindex="1"><img src="{% static 'images/6.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(4)" tabindex="1"><img id="selectImage4"></div>
+                    <div class="dum" onclick="myFunction(5)" tabindex="1"><img id="selectImage5"></div>
+                    <div class="dum" onclick="myFunction(6)" tabindex="1"><img id="selectImage6"></div>
                 </div>
                 <div class="center-div">
 
-                    <div class="dum" onclick="myFunction(7)" tabindex="1"><img src="{% static 'images/7.jpg' %}"></div>
-                    <div class="dum" onclick="myFunction(8)" tabindex="1"><img src="{% static 'images/8.jpg' %}"></div>
-                    <div class="dum" onclick="myFunction(9)" tabindex="1"><img src="{% static 'images/9.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(7)" tabindex="1"><img id="selectImage7"></div>
+                    <div class="dum" onclick="myFunction(8)" tabindex="1"><img id="selectImage8"></div>
+                    <div class="dum" onclick="myFunction(9)" tabindex="1"><img id="selectImage9"></div>
                 </div>
 <!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
 <!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
@@ -596,6 +596,42 @@ img {
       console.log(password);
     }
   }
+
+  function shuffle() {
+      array=['1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpeg',
+            '5.jpg',
+            '6.jpg',
+            '7.jpg',
+            '8.jpg',
+            '9.jpg'
+      ]
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  document.getElementById("selectImage1").src=`./static/images/${array[0]}`;
+  document.getElementById("selectImage2").src=`./static/images/${array[1]}`;
+  document.getElementById("selectImage3").src=`./static/images/${array[2]}`;
+  document.getElementById("selectImage4").src=`./static/images/${array[3]}`;
+  document.getElementById("selectImage5").src=`./static/images/${array[4]}`;
+  document.getElementById("selectImage6").src=`./static/images/${array[5]}`;
+  document.getElementById("selectImage7").src=`./static/images/${array[6]}`;
+  document.getElementById("selectImage8").src=`./static/images/${array[7]}`;
+  document.getElementById("selectImage9").src=`./static/images/${array[8]}`;
+}
     function myFunction1() {
         image_arr=[
             '1.jpg',
