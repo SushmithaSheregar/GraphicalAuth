@@ -1,3 +1,4 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,13 +251,13 @@
         width: 33.33%;
         height: 100px;
         margin: 5px 5px;
-        background-color: red;
+        background-color: white;
     }
 
     .single-img{
         width: 65%;
         height: 300px;
-        background-color: red;
+        background-color: white;
         margin-bottom: 2%;
     }
     @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
@@ -376,6 +377,16 @@ body{
     animation-delay: 0s;
     animation-duration: 11s;
 }
+img {
+    width: 100%; /* or any custom size */
+    height: 100%; 
+    object-fit: contain;
+}
+
+.dum:focus{
+    border: 5px solid orange;
+    padding: 10px;
+}
 
 
 
@@ -445,25 +456,26 @@ body{
                 <hr>
                 <h3 class="fs-subtitle">Select any three images</h3>
                 <div class="center-div">
-                    <div class="dum"></div>
-                    <div class="dum"></div>
-                    <div class="dum"></div>
+                    <div class="dum" onclick="myFunction(1)" tabindex="1"><img src="{% static 'images/1.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(2)" tabindex="1"><img src="{% static 'images/2.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(3)" tabindex="1"><img src="{% static 'images/3.jpg' %}"></div>
                 </div>
                 <div class="center-div">
-                    <div class="dum"></div>
-                    <div class="dum"></div>
-                    <div class="dum"></div>
+                    <div class="dum" onclick="myFunction(4)" tabindex="1"><img src="{% static 'images/4.jpeg' %}"></div>
+                    <div class="dum" onclick="myFunction(5)" tabindex="1"><img src="{% static 'images/5.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(6)" tabindex="1"><img src="{% static 'images/6.jpg' %}"></div>
                 </div>
                 <div class="center-div">
-                    <div class="dum"></div>
-                    <div class="dum"></div>
-                    <div class="dum"></div>
+
+                    <div class="dum" onclick="myFunction(7)" tabindex="1"><img src="{% static 'images/7.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(8)" tabindex="1"><img src="{% static 'images/8.jpg' %}"></div>
+                    <div class="dum" onclick="myFunction(9)" tabindex="1"><img src="{% static 'images/9.jpg' %}"></div>
                 </div>
 <!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
 <!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
 <!--                <input type="text" name="gplus" placeholder="Google Plus"/>-->
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <input type="button" name="next" class="next action-button" value="Next" onclick="myFunction1()"/>
             </fieldset>
             <fieldset style="width: 80%;">
                 <div class="left-align">
@@ -472,7 +484,8 @@ body{
                 <hr>
                 <h3 class="fs-subtitle">Select 3 points from the Grid</h3>
                 <div class="center-div">
-                    <div class="single-img">
+                    <div class="single-img" >
+                        <img id="selectPixel">
 
                     </div>
                 </div>
@@ -572,7 +585,36 @@ body{
             easing: 'easeInOutBack'
         });
     });
+   
+  var password = new Set();
+  function myFunction(id) {
+    if (password.size > 2) {
+      alert("password length exceeded");
+    } else {
+      password.add(id);
+      [...password].join(" ");
+      console.log(password);
+    }
+  }
+    function myFunction1() {
+        image_arr=[
+            '1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpeg',
+            '5.jpg',
+            '6.jpg',
+            '7.jpg',
+            '8.jpg',
+            '9.jpg'
+        ]
+  
+    var selectPixelImage=Math.floor((Math.random() * 9) + 1);
+    selected_image=image_arr[selectPixelImage];
 
+    document.getElementById("selectPixel").src=`./static/images/${selected_image}`;
+    }
+  
     $(".submit").click(function(){
         return false;
     })
