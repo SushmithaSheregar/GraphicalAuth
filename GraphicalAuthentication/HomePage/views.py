@@ -18,3 +18,7 @@ def signup(request):
         ins2.save()
         print("data entered")
     return render(request, 'signup.html')
+
+    
+def signin(request):
+    return render(request, 'signin.html')
