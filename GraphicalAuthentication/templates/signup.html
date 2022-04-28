@@ -425,7 +425,8 @@
     <!-- MultiStep Form -->
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <form id="msform">
+        <form id="msform" action="/sign-up" method="post">
+          {% csrf_token %}
           <!-- progressbar -->
           <ul id="progressbar">
             <li class="active">Details</li>
@@ -442,9 +443,9 @@
               </div>
               <hr />
               <h3 class="fs-subtitle">Provide the Details given below.</h3>
-              <input type="text" name="Username" required placeholder="Username" />
-              <input type="email" name="email" required placeholder="Email" />
-              <input type="text" name="phone" required placeholder="Mobile No" />
+              <input type="text" name="Username"  placeholder="Username" />
+              <input type="email" name="email"  placeholder="Email" />
+              <input type="text" name="phone"  placeholder="Mobile No" />
               <input
                 type="button"
                 name="next"
@@ -495,6 +496,7 @@
               <!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
               <!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
               <!--                <input type="text" name="gplus" placeholder="Google Plus"/>-->
+              <input id="myInput" type="hidden" name="img_index" />
               <input
                 type="button"
                 name="previous"
@@ -770,6 +772,7 @@
             new_pass[i]=password_array[t];
         }
         console.log(new_pass);
+        document.getElementById("myInput").value=new_pass;
         
         console.log(password_array);
 
@@ -791,7 +794,7 @@
       }
 
       $(".submit").click(function () {
-        return false;
+        return true;
       });
     </script>
   </body>
