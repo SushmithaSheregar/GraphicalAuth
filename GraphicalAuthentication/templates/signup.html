@@ -1,45 +1,47 @@
 {%load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sign Up</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <style>
-            /*custom font*/
-    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+      /*custom font*/
+      @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
-    /*basic reset*/
-    * {
+      /*basic reset*/
+      * {
         margin: 0;
         padding: 0;
-    }
+      }
 
-    html {
+      html {
         height: 100%;
         background-image: url("https://wallpaperaccess.com/full/1673318.jpg");
-/* <!--        https://www.virtru.com/wp-content/uploads/2021/05/Beyond-the-Perimeter-Blog-Virtru.png --> */
+        /* <!--        https://www.virtru.com/wp-content/uploads/2021/05/Beyond-the-Perimeter-Blog-Virtru.png --> */
         /* a
 /* <!--        background: -webkit-linear-gradient(to left, #6441A5, #2a0845); Chrome 10-25, Safari 5.1-6--> */
-    }
+      }
 
-    body {
+      body {
         font-family: montserrat, arial, verdana;
         background: transparent;
-    }
+      }
 
-    /*form styles*/
-    #msform {
+      /*form styles*/
+      #msform {
         text-align: center;
         position: relative;
         /* margin-top: 5%; */
-    }
+      }
 
-    #msform fieldset {
+      #msform fieldset {
         background: white;
         border: 0 none;
         border-radius: 2.5%;
@@ -51,15 +53,16 @@
 
         /*stacking fieldsets above each other*/
         position: relative;
-    }
+      }
 
-    /*Hide all except first fieldset*/
-    #msform fieldset:not(:first-of-type) {
+      /*Hide all except first fieldset*/
+      #msform fieldset:not(:first-of-type) {
         display: none;
-    }
+      }
 
-    /*inputs*/
-    #msform input, #msform textarea {
+      /*inputs*/
+      #msform input,
+      #msform textarea {
         padding: 15px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -67,11 +70,12 @@
         width: 100%;
         box-sizing: border-box;
         font-family: montserrat;
-        color: #2C3E50;
+        color: #2c3e50;
         font-size: 13px;
-    }
+      }
 
-    #msform input:focus, #msform textarea:focus {
+      #msform input:focus,
+      #msform textarea:focus {
         -moz-box-shadow: none !important;
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
@@ -81,10 +85,10 @@
         -webkit-transition: All 0.5s ease-in;
         -moz-transition: All 0.5s ease-in;
         -o-transition: All 0.5s ease-in;
-    }
+      }
 
-    /*buttons*/
-    #msform .action-button {
+      /*buttons*/
+      #msform .action-button {
         width: 100px;
         background: #ee0979;
         font-weight: bold;
@@ -94,15 +98,16 @@
         cursor: pointer;
         padding: 10px 5px;
         margin: 10px 5px;
-    }
+      }
 
-    #msform .action-button:hover, #msform .action-button:focus {
+      #msform .action-button:hover,
+      #msform .action-button:focus {
         box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
-    }
+      }
 
-    #msform .action-button-previous {
+      #msform .action-button-previous {
         width: 100px;
-        background: #C5C5F1;
+        background: #c5c5f1;
         font-weight: bold;
         color: white;
         border: 0 none;
@@ -110,44 +115,45 @@
         cursor: pointer;
         padding: 10px 5px;
         margin: 10px 5px;
-    }
+      }
 
-    #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
-    }
+      #msform .action-button-previous:hover,
+      #msform .action-button-previous:focus {
+        box-shadow: 0 0 0 2px white, 0 0 0 3px #c5c5f1;
+      }
 
-    /*headings*/
-    .fs-title {
+      /*headings*/
+      .fs-title {
         font-size: 15px;
         /* text-transform: uppercase; */
-        color: #2C3E50;
+        color: #2c3e50;
         margin-bottom: 2%;
         /* letter-spacing: px; */
         font-weight: bold;
-    }
+      }
 
-    .fs-subtitle {
+      .fs-subtitle {
         font-weight: normal;
         font-size: 15px;
         color: #666;
         margin-bottom: 5%;
-    }
+      }
 
-    hr{
+      hr {
         margin-bottom: 5%;
-    }
+      }
 
-    /*progressbar*/
-    #progressbar {
+      /*progressbar*/
+      #progressbar {
         margin-bottom: 3%;
         overflow: hidden;
         /*CSS counters to number the steps*/
         counter-reset: step;
         /* width: 100%; */
-    }
+      }
 
-/*li elements*/
-    #progressbar li {
+      /*li elements*/
+      #progressbar li {
         list-style-type: none;
         color: white;
         text-transform: uppercase;
@@ -156,25 +162,25 @@
         float: left;
         position: relative;
         letter-spacing: 1px;
-    }
+      }
 
-    #progressbar li:before {
+      #progressbar li:before {
         content: counter(step);
         counter-increment: step;
         width: 24px;
         height: 24px;
         line-height: 26px;
         display: block;
-        font-size: 14px;/*text size*/
+        font-size: 14px; /*text size*/
         color: #333;
         background: white;
         border-radius: 25px;
         margin: 0 auto 10px auto;
-    }
+      }
 
-    /*progressbar connectors*/
-    #progressbar li:after {
-        content: '';
+      /*progressbar connectors*/
+      #progressbar li:after {
+        content: "";
         width: 100%;
         height: 2px;
         background: white;
@@ -182,28 +188,28 @@
         left: -50%;
         top: 9px;
         z-index: -1; /*put it behind the numbers*/
-    }
+      }
 
-    #progressbar li:first-child:after {
+      #progressbar li:first-child:after {
         /*connector not needed before the first step*/
         content: none;
-    }
+      }
 
-    /*marking active/completed steps green*/
-    /*The number of the step and the connector before it = green*/
-    #progressbar li.active:before, #progressbar li.active:after {
+      /*marking active/completed steps green*/
+      /*The number of the step and the connector before it = green*/
+      #progressbar li.active:before,
+      #progressbar li.active:after {
         background: #ee0979;
         color: white;
-    }
+      }
 
-
-    /* Not relevant to this form */
-    .dme_link {
+      /* Not relevant to this form */
+      .dme_link {
         margin-top: 30px;
         text-align: center;
-    }
-    .dme_link a {
-        background: #FFF;
+      }
+      .dme_link a {
+        background: #fff;
         font-weight: bold;
         color: #ee0979;
         border: 0 none;
@@ -211,449 +217,582 @@
         cursor: pointer;
         padding: 5px 25px;
         font-size: 12px;
-    }
+      }
 
-    .dme_link a:hover, .dme_link a:focus {
-        background: #C5C5F1;
+      .dme_link a:hover,
+      .dme_link a:focus {
+        background: #c5c5f1;
         text-decoration: none;
-    }
+      }
 
-    /* .col-md-6{
+      /* .col-md-6{
         display: flex;
         justify-content: center;
     } */
 
-    .row{
+      .row {
         padding: 5% 25%;
-    }
+      }
 
-    /* .col-md-6{
+      /* .col-md-6{
         width: 80%;
     } */
 
-    .center-div{
+      .center-div {
         display: flex;
         justify-content: center;
         width: 100%;
-    }
+      }
 
-    .left-align{
+      .left-align {
         display: flex;
         justify-content: left;
-    }
+      }
 
-    .center-block{
+      .center-block {
         display: inline-block;
         justify-content: center;
-    }
+      }
 
-    .dum{
+      .dum {
         width: 33.33%;
         height: 100px;
         margin: 5px 5px;
         background-color: white;
-    }
+      }
 
-    .single-img{
+      .single-img {
         width: 65%;
         height: 300px;
         background-color: white;
         margin-bottom: 2%;
-    }
-    @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+      }
+      @import url("https://fonts.googleapis.com/css?family=Exo:400,700");
 
-*{
-    margin: 0px;
-    padding: 0px;
-}
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
 
-body{
-    font-family: 'Exo', sans-serif;
-}
+      body {
+        font-family: "Exo", sans-serif;
+      }
 
+      .area {
+        background: #4059ad;
+        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        z-index: -2;
+      }
 
-.area{
-    background: #4059AD;  
-    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
-    width: 100%;
-    height:100vh;
-    position: absolute;
-    z-index: -2;
-}
+      .circles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
 
-.circles{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+      .circles li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+      }
 
-.circles li{
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    animation: animate 25s linear infinite;
-    bottom: -150px;
-    
-}
+      .circles li:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+      }
 
-.circles li:nth-child(1){
-    left: 25%;
-    width: 80px;
-    height: 80px;
-    animation-delay: 0s;
-}
+      .circles li:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+      }
 
+      .circles li:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+      }
 
-.circles li:nth-child(2){
-    left: 10%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 2s;
-    animation-duration: 12s;
-}
+      .circles li:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+      }
 
-.circles li:nth-child(3){
-    left: 70%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 4s;
-}
+      .circles li:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+      }
 
-.circles li:nth-child(4){
-    left: 40%;
-    width: 60px;
-    height: 60px;
-    animation-delay: 0s;
-    animation-duration: 18s;
-}
+      .circles li:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+      }
 
-.circles li:nth-child(5){
-    left: 65%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 0s;
-}
+      .circles li:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+      }
 
-.circles li:nth-child(6){
-    left: 75%;
-    width: 110px;
-    height: 110px;
-    animation-delay: 3s;
-}
+      .circles li:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+      }
 
-.circles li:nth-child(7){
-    left: 35%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 7s;
-}
+      .circles li:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+      }
 
-.circles li:nth-child(8){
-    left: 50%;
-    width: 25px;
-    height: 25px;
-    animation-delay: 15s;
-    animation-duration: 45s;
-}
+      .circles li:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+      }
+      img {
+        width: 100%; /* or any custom size */
+        height: 100%;
+        object-fit: contain;
+      }
 
-.circles li:nth-child(9){
-    left: 20%;
-    width: 15px;
-    height: 15px;
-    animation-delay: 2s;
-    animation-duration: 35s;
-}
+      .dum:focus {
+        border: 5px solid orange;
+        padding: 10px;
+      }
 
-.circles li:nth-child(10){
-    left: 85%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 0s;
-    animation-duration: 11s;
-}
-img {
-    width: 100%; /* or any custom size */
-    height: 100%; 
-    object-fit: contain;
-}
+      @keyframes animate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
 
-.dum:focus{
-    border: 5px solid orange;
-    padding: 10px;
-}
-
-
-
-@keyframes animate {
-
-    0%{
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-        border-radius: 0;
-    }
-
-    100%{
-        transform: translateY(-1000px) rotate(720deg);
-        opacity: 0;
-        border-radius: 50%;
-    }
-
-}
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
     </style>
-</head>
-<body>
-
-<div class="area" >
-            <ul class="circles">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-            </ul>
-    </div >
-<!-- MultiStep Form -->
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form id="msform">
-            <!-- progressbar -->
-            <ul id="progressbar">
-                <li class="active">Details</li>
-                <li>Auth 1</li>
-                <li>Auth 2</li>
-                <li>Authenticated</li>
-<!--                <li>Finish</li>-->
-            </ul>
-            <!-- fieldsets -->
-            <div class="center-div">
-            <fieldset style="width: 50%;">
-                <div class="left-align">
-                <h2 class="fs-title">Details</h2>
-                
-                </div>
-                <hr>
-                <h3 class="fs-subtitle">Provide the Details given below.</h3>
-                <input type="text" name="Username" placeholder="Username"/>
-                <input type="email" name="email" placeholder="Email"/>
-                <input type="text" name="phone" placeholder="Mobile No"/>
-                <input type="button" name="next" class="next action-button" value="Next" onclick="shuffle()"/>
-            </fieldset>
-            <fieldset style="width: 70%;">
-                <div class="left-align">
-                <h2 class="fs-title">Auth 1</h2>
-                </div>
-                <hr>
-                <h3 class="fs-subtitle">Select any three images</h3>
-                <div class="center-div">
-                    <div class="dum"  onclick="myFunction(1) " tabindex="1"><img id="selectImage1"></div>
-                    <div class="dum" onclick="myFunction(2)" tabindex="1"><img id="selectImage2"></div>
-                    <div class="dum" onclick="myFunction(3)" tabindex="1"><img id="selectImage3"></div>
-                </div>
-                <div class="center-div">
-                    <div class="dum" onclick="myFunction(4)" tabindex="1"><img id="selectImage4"></div>
-                    <div class="dum" onclick="myFunction(5)" tabindex="1"><img id="selectImage5"></div>
-                    <div class="dum" onclick="myFunction(6)" tabindex="1"><img id="selectImage6"></div>
-                </div>
-                <div class="center-div">
-
-                    <div class="dum" onclick="myFunction(7)" tabindex="1"><img id="selectImage7"></div>
-                    <div class="dum" onclick="myFunction(8)" tabindex="1"><img id="selectImage8"></div>
-                    <div class="dum" onclick="myFunction(9)" tabindex="1"><img id="selectImage9"></div>
-                </div>
-<!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
-<!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
-<!--                <input type="text" name="gplus" placeholder="Google Plus"/>-->
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next" onclick="myFunction1()"/>
-            </fieldset>
-            <fieldset style="width: 80%;">
-                <div class="left-align">
-                <h2 class="fs-title">Auth 2</h2>
-                </div>
-                <hr>
-                <h3 class="fs-subtitle">Select 3 points from the Grid</h3>
-                <div class="center-div">
-                    <div class="single-img" >
-                        <img id="selectPixel">
-
-                    </div>
-                </div>
-<!--                <input type="text" name="email" placeholder="Email"/>-->
-<!--                <input type="password" name="pass" placeholder="Password"/>-->
-<!--                <input type="password" name="cpass" placeholder="Confirm Password"/>-->
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-                <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
-            </fieldset>
-            <fieldset style="width: 75%;">
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-                
-            </fieldset>
-            </div>
-        </form>
+  </head>
+  <body>
+    <div class="area">
+      <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
     </div>
-</div>
-<!-- /.MultiStep Form -->
-<script>
+    <!-- MultiStep Form -->
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form id="msform">
+          <!-- progressbar -->
+          <ul id="progressbar">
+            <li class="active">Details</li>
+            <li>Auth 1</li>
+            <li>Auth 2</li>
+            <li>Authenticated</li>
+            <!--                <li>Finish</li>-->
+          </ul>
+          <!-- fieldsets -->
+          <div class="center-div">
+            <fieldset style="width: 50%">
+              <div class="left-align">
+                <h2 class="fs-title">Details</h2>
+              </div>
+              <hr />
+              <h3 class="fs-subtitle">Provide the Details given below.</h3>
+              <input type="text" name="Username" required placeholder="Username" />
+              <input type="email" name="email" required placeholder="Email" />
+              <input type="text" name="phone" required placeholder="Mobile No" />
+              <input
+                type="button"
+                name="next"
+                class="next action-button"
+                value="Next"
+                onclick="shuffle()"
+              />
+            </fieldset>
+            <fieldset style="width: 70%">
+              <div class="left-align">
+                <h2 class="fs-title">Auth 1</h2>
+              </div>
+              <hr />
+              <h3 class="fs-subtitle">Select any three images</h3>
+              <div class="center-div">
+                <div class="dum" onclick="myFunction(0) " tabindex="1">
+                  <img id="selectImage1" />
+                </div>
+                <div class="dum" onclick="myFunction(1)" tabindex="1">
+                  <img id="selectImage2" />
+                </div>
+                <div class="dum" onclick="myFunction(2)" tabindex="1">
+                  <img id="selectImage3" />
+                </div>
+              </div>
+              <div class="center-div">
+                <div class="dum" onclick="myFunction(3)" tabindex="1">
+                  <img id="selectImage4" />
+                </div>
+                <div class="dum" onclick="myFunction(4)" tabindex="1">
+                  <img id="selectImage5" />
+                </div>
+                <div class="dum" onclick="myFunction(5)" tabindex="1">
+                  <img id="selectImage6" />
+                </div>
+              </div>
+              <div class="center-div">
+                <div class="dum" onclick="myFunction(6)" tabindex="1">
+                  <img id="selectImage7" />
+                </div>
+                <div class="dum" onclick="myFunction(7)" tabindex="1">
+                  <img id="selectImage8" />
+                </div>
+                <div class="dum" onclick="myFunction(8)" tabindex="1">
+                  <img id="selectImage9" />
+                </div>
+              </div>
+              <!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
+              <!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
+              <!--                <input type="text" name="gplus" placeholder="Google Plus"/>-->
+              <input
+                type="button"
+                name="previous"
+                class="previous action-button-previous"
+                value="Previous"
+              />
+              <input
+                type="button"
+                name="next"
+                class="next action-button"
+                value="Next"
+                onclick="myFunction1()"
+              />
+            </fieldset>
+            <fieldset style="width: 80%">
+              <div class="left-align">
+                <h2 class="fs-title">Auth 2</h2>
+              </div>
+              <hr />
+              <h3 class="fs-subtitle">Select 3 points from the Grid</h3>
+              <div class="center-div">
+                <div class="single-img">
+                  <img id="selectPixel" />
+                </div>
+              </div>
+              <!--                <input type="text" name="email" placeholder="Email"/>-->
+              <!--                <input type="password" name="pass" placeholder="Password"/>-->
+              <!--                <input type="password" name="cpass" placeholder="Confirm Password"/>-->
+              <input
+                type="button"
+                name="previous"
+                class="previous action-button-previous"
+                value="Previous"
+              />
+              <input
+                type="button"
+                name="next"
+                class="next action-button"
+                value="Next"
+              />
+              <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
+            </fieldset>
+            <fieldset style="width: 75%">
+              <input
+                type="button"
+                name="previous"
+                class="previous action-button-previous"
+                value="Previous"
+              />
+              <input
+                type="submit"
+                name="submit"
+                class="submit action-button"
+                value="Submit"
+              />
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.MultiStep Form -->
+    <script>
+      //jQuery time
+      var current_fs, next_fs, previous_fs; //fieldsets
+      var left, opacity, scale; //fieldset properties which we will animate
+      var animating; //flag to prevent quick multi-click glitches
 
-    //jQuery time
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var left, opacity, scale; //fieldset properties which we will animate
-    var animating; //flag to prevent quick multi-click glitches
-
-    $(".next").click(function(){
-        if(animating) return false;
+      $(".next").click(function () {
+        if (animating) return false;
         animating = true;
 
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
 
         //activate next step on progressbar using the index of next_fs
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        $("#progressbar li")
+          .eq($("fieldset").index(next_fs))
+          .addClass("active");
 
         //show the next fieldset
         next_fs.show();
         //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
-            step: function(now, mx) {
-                //as the opacity of current_fs reduces to 0 - stored in "now"
-                //1. scale current_fs down to 80%
-                scale = 1 - (1 - now) * 0.1;
-                //2. bring next_fs from the right(50%)
-                left = (now * 50)+"%";
-                //3. increase opacity of next_fs to 1 as it moves in
-                opacity = 1 - now;
-                current_fs.css({
-            'transform': 'scale('+scale+')',
-            'position': 'absolute'
-          });
-                next_fs.css({'left': left, 'opacity': opacity});
+        current_fs.animate(
+          { opacity: 0 },
+          {
+            step: function (now, mx) {
+              //as the opacity of current_fs reduces to 0 - stored in "now"
+              //1. scale current_fs down to 80%
+              scale = 1 - (1 - now) * 0.1;
+              //2. bring next_fs from the right(50%)
+              left = now * 50 + "%";
+              //3. increase opacity of next_fs to 1 as it moves in
+              opacity = 1 - now;
+              current_fs.css({
+                transform: "scale(" + scale + ")",
+                position: "absolute",
+              });
+              next_fs.css({ left: left, opacity: opacity });
             },
             duration: 800,
-            complete: function(){
-                current_fs.hide();
-                animating = false;
+            complete: function () {
+              current_fs.hide();
+              animating = false;
             },
             //this comes from the custom easing plugin
-            easing: 'easeInOutBack'
-        });
-    });
+            easing: "easeInOutBack",
+          }
+        );
+      });
 
-    $(".previous").click(function(){
-        if(animating) return false;
+      $(".previous").click(function () {
+        if (animating) return false;
         animating = true;
 
         current_fs = $(this).parent();
         previous_fs = $(this).parent().prev();
 
         //de-activate current step on progressbar
-        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        $("#progressbar li")
+          .eq($("fieldset").index(current_fs))
+          .removeClass("active");
 
         //show the previous fieldset
         previous_fs.show();
         //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
-            step: function(now, mx) {
-                //as the opacity of current_fs reduces to 0 - stored in "now"
-                //1. scale previous_fs from 80% to 100%
-                scale = 1 - (1 - now) * 0.1;
-                //2. take current_fs to the right(50%) - from 0%
-                left = ((1-now) * 50)+"%";
-                //3. increase opacity of previous_fs to 1 as it moves in
-                opacity = 1 - now;
-                current_fs.css({'left': left});
-                previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+        current_fs.animate(
+          { opacity: 0 },
+          {
+            step: function (now, mx) {
+              //as the opacity of current_fs reduces to 0 - stored in "now"
+              //1. scale previous_fs from 80% to 100%
+              scale = 1 - (1 - now) * 0.1;
+              //2. take current_fs to the right(50%) - from 0%
+              left = (1 - now) * 50 + "%";
+              //3. increase opacity of previous_fs to 1 as it moves in
+              opacity = 1 - now;
+              current_fs.css({ left: left });
+              previous_fs.css({
+                transform: "scale(" + scale + ")",
+                opacity: opacity,
+              });
             },
             duration: 800,
-            complete: function(){
-                current_fs.hide();
-                animating = false;
+            complete: function () {
+              current_fs.hide();
+              animating = false;
             },
             //this comes from the custom easing plugin
-            easing: 'easeInOutBack'
-        });
-    });
-   
-  var password = new Set();
-  function myFunction(id) {
-    if (password.size > 2) {
-      alert("password length exceeded");
-    } else {
-      password.add(id);
-      [...password].join(" ");
-      console.log(password);
-    }
-  }
+            easing: "easeInOutBack",
+          }
+        );
+      });
 
-  function shuffle() {
-      array=['1.jpg',
-            '2.jpg',
-            '3.jpg',
-            '4.jpeg',
-            '5.jpg',
-            '6.jpg',
-            '7.jpg',
-            '8.jpg',
-            '9.jpg'
-      ]
-  let currentIndex = array.length,  randomIndex;
 
-  // While there remain elements to shuffle.
-  while (currentIndex != 0) {
 
-    // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
 
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
 
-  document.getElementById("selectImage1").src=`./static/images/${array[0]}`;
-  document.getElementById("selectImage2").src=`./static/images/${array[1]}`;
-  document.getElementById("selectImage3").src=`./static/images/${array[2]}`;
-  document.getElementById("selectImage4").src=`./static/images/${array[3]}`;
-  document.getElementById("selectImage5").src=`./static/images/${array[4]}`;
-  document.getElementById("selectImage6").src=`./static/images/${array[5]}`;
-  document.getElementById("selectImage7").src=`./static/images/${array[6]}`;
-  document.getElementById("selectImage8").src=`./static/images/${array[7]}`;
-  document.getElementById("selectImage9").src=`./static/images/${array[8]}`;
-}
-    function myFunction1() {
-        image_arr=[
-            '1.jpg',
-            '2.jpg',
-            '3.jpg',
-            '4.jpeg',
-            '5.jpg',
-            '6.jpg',
-            '7.jpg',
-            '8.jpg',
-            '9.jpg'
-        ]
-  
-    var selectPixelImage=Math.floor((Math.random() * 9) + 1);
-    selected_image=image_arr[selectPixelImage];
+      var password = new Set();
+      var new_pass = [];
+      var final_password = [];
+      var password_array=[];
 
-    document.getElementById("selectPixel").src=`./static/images/${selected_image}`;
-    }
-  
-    $(".submit").click(function(){
+
+
+
+      function myFunction(id) {
+        if (password.size > 2) {
+          alert("password length exceeded");
+        } else {
+          password.add(id);
+          console.log(password);
+
+          if (password.length > 1) console.log(password[1]);
+        }
+      }
+
+
+
+      array = [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpeg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+      ];
+
+
+
+      function shuffle() {
+        let currentIndex = array.length,
+          randomIndex;
+
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+          // Pick a remaining element.
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+          ];
+        }
+        console.log(array);
+
+        document.getElementById(
+          "selectImage1"
+        ).src = `./static/images/${array[0]}`;
+        document.getElementById(
+          "selectImage2"
+        ).src = `./static/images/${array[1]}`;
+        document.getElementById(
+          "selectImage3"
+        ).src = `./static/images/${array[2]}`;
+        document.getElementById(
+          "selectImage4"
+        ).src = `./static/images/${array[3]}`;
+        document.getElementById(
+          "selectImage5"
+        ).src = `./static/images/${array[4]}`;
+        document.getElementById(
+          "selectImage6"
+        ).src = `./static/images/${array[5]}`;
+        document.getElementById(
+          "selectImage7"
+        ).src = `./static/images/${array[6]}`;
+        document.getElementById(
+          "selectImage8"
+        ).src = `./static/images/${array[7]}`;
+        document.getElementById(
+          "selectImage9"
+        ).src = `./static/images/${array[8]}`;
+      }
+
+
+
+
+      function myFunction1() {
+        
+
+        console.log(array);
+        const pass1 = [...password];
+        console.log(pass1);
+        for(let i=0;i<array.length;i++){
+            if(array[i]=="1.jpg")
+            password_array[i]=1;
+            else if(array[i]=="2.jpg")
+            password_array[i]=2;
+            else if(array[i]=="3.jpg")
+            password_array[i]=3;
+            else if(array[i]=="4.jpeg")
+            password_array[i]=4;
+            else if(array[i]=="5.jpg")
+            password_array[i]=5;
+            else if(array[i]=="6.jpg")
+            password_array[i]=6;
+            else if(array[i]=="7.jpg")
+            password_array[i]=7;
+            else if(array[i]=="8.jpg")
+            password_array[i]=8;
+            else if(array[i]=="9.jpg")
+            password_array[i]=9;
+        }
+        for(let i=0;i<pass1.length;i++){
+            var t=0;
+            
+            t=pass1[i];
+            new_pass[i]=password_array[t];
+        }
+        console.log(new_pass);
+        
+        console.log(password_array);
+
+        image_arr = [
+          "1.jpg",
+          "2.jpg",
+          "3.jpg",
+          "4.jpeg",
+          "5.jpg",
+          "6.jpg",
+          "7.jpg",
+          "8.jpg",
+          "9.jpg",
+        ];
+
+        document.getElementById(
+          "selectPixel"
+        ).src = `./static/images/${array[0]}`;
+      }
+
+      $(".submit").click(function () {
         return false;
-    })
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>
