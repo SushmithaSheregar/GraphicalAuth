@@ -23,7 +23,7 @@
 
       html {
         height: 100%;
-        background-image: url("https://wallpaperaccess.com/full/1673318.jpg");
+        /* background-image: url("https://wallpaperaccess.com/full/1673318.jpg"); */
         /* <!--        https://www.virtru.com/wp-content/uploads/2021/05/Beyond-the-Perimeter-Blog-Virtru.png --> */
         /* a
 /* <!--        background: -webkit-linear-gradient(to left, #6441A5, #2a0845); Chrome 10-25, Safari 5.1-6--> */
@@ -392,6 +392,15 @@
         padding: 10px;
       }
 
+      .indicator{
+        height: 10px;
+        width: 10px;
+        background-color: red;
+        border-radius: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+
       @keyframes animate {
         0% {
           transform: translateY(0) rotate(0deg);
@@ -404,6 +413,16 @@
           opacity: 0;
           border-radius: 50%;
         }
+      }
+
+      h2{
+        font-size: 20px;
+        font-family: monospace;
+        padding: 10px;
+      }
+
+      .single-img{
+          cursor: pointer;
       }
     </style>
   </head>
@@ -518,8 +537,13 @@
               <hr />
               <h3 class="fs-subtitle">Select 3 points from the Grid</h3>
               <div class="center-div">
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+              </div>
+              <div class="center-div">
                 <div class="single-img">
-                  <img id="selectPixel" />
+                  <img class="selectImage" id="selectPixel" />
                 </div>
               </div>
               <!--                <input type="text" name="email" placeholder="Email"/>-->
@@ -540,18 +564,18 @@
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
             </fieldset>
             <fieldset style="width: 75%">
-              <input
-                type="button"
-                name="previous"
-                class="previous action-button-previous"
-                value="Previous"
-              />
+              <div class="center-div">
+                <h2>Authentication Completed</h2>
+
+              </div>
+              <a href="homepage.html">
               <input
                 type="submit"
                 name="submit"
                 class="submit action-button"
-                value="Submit"
+                value="Home"
               />
+              </a>
             </fieldset>
           </div>
         </form>
@@ -559,6 +583,59 @@
     </div>
     <!-- /.MultiStep Form -->
     <script>
+        pixelSet = []
+    
+        selectPixel.onclick = function(e) {
+            var ratioX = e.target.naturalWidth / e.target.offsetWidth;
+            var ratioY = e.target.naturalHeight / e.target.offsetHeight;
+
+            var domX = e.x + window.pageXOffset - e.target.offsetLeft;
+            var domY = e.y + window.pageYOffset - e.target.offsetTop;
+
+            var imgX = Math.round(domX * ratioX);
+            var imgY = Math.round(domY * ratioY);
+            var indicatorElems = document.getElementsByClassName("indicator")
+
+            if(pixelSet.length < 3){
+                pixelSet.push([imgX, imgY])
+                console.log(imgX, imgY);
+                // console.log(indicatorElems)
+                for(var i = 0; i< indicatorElems.length;i++){
+                  // console.log(indicatorElems[i].style.backgroundColor)
+                  if (indicatorElems[i].style.backgroundColor !== "green"){
+                    indicatorElems[i].style.backgroundColor = "green"
+                    break
+                  }
+                }
+                return
+            }
+            if(pixelSet.length == 3){
+                console.log(pixelSet)
+                pixelString = ''
+                for (let pixel of pixelSet){
+                    pixelString += String(pixel[0]) + String(pixel[1])
+                }
+                console.log(pixelString)
+                imageName = document.getElementsByClassName('selectImage')[0].src
+                $.ajax({
+                    type: "POST",
+                    url: '/dum',   
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token}}',
+                        pixelPoint: JSON.stringify(pixelSet),
+                        pixelString: pixelString,
+                        imagePath: imageName,
+                    },  
+                    success: function redirect(){
+                      // window.location.replace('home')
+                    }
+                });
+                // dum();
+                return
+            }
+            alert('All Points Selected')
+
+        };
       //jQuery time
       var current_fs, next_fs, previous_fs; //fieldsets
       var left, opacity, scale; //fieldset properties which we will animate
