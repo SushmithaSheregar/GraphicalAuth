@@ -101,3 +101,6 @@ def steganographyEncrypt(imagePath, pixelString):
     #         print("Key doesn't matched.")
     # else:
     #     print("Thank you. EXITING.")
+    
+def signin(request):
+    return render(request, 'signin.html')
