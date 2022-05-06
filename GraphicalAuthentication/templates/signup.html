@@ -63,15 +63,16 @@
       /*inputs*/
       #msform input,
       #msform textarea {
-        padding: 15px;
+        padding: 1vw;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin-bottom: 15px;
         width: 100%;
         box-sizing: border-box;
-        font-family: montserrat;
+        /* font-family: montserrat; */
+        font-family: monospace;
         color: #2c3e50;
-        font-size: 13px;
+        font-size: 1vw;
       }
 
       #msform input:focus,
@@ -124,7 +125,7 @@
 
       /*headings*/
       .fs-title {
-        font-size: 15px;
+        font-size: 1.5vw;
         /* text-transform: uppercase; */
         color: #2c3e50;
         margin-bottom: 2%;
@@ -134,8 +135,9 @@
 
       .fs-subtitle {
         font-weight: normal;
-        font-size: 15px;
+        font-size: 1vw;
         color: #666;
+        font-family: monospace;
         margin-bottom: 5%;
       }
 
@@ -231,7 +233,7 @@
     } */
 
       .row {
-        padding: 5% 25%;
+        padding: 5% 25% 0% 25%;
       }
 
       /* .col-md-6{
@@ -282,7 +284,7 @@
         background: #4059ad;
         background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
         width: 100%;
-        height: 100vh;
+        height: 100%;
         position: absolute;
         z-index: -2;
       }
@@ -416,7 +418,7 @@
       }
 
       h2{
-        font-size: 20px;
+        font-size: 20%;
         font-family: monospace;
         padding: 10px;
       }
@@ -560,6 +562,7 @@
                 name="next"
                 class="next action-button"
                 value="Next"
+                onclick="goForward()"
               />
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
             </fieldset>
@@ -726,6 +729,33 @@
           }
         );
       });
+
+      function goForward(){
+        if(pixelSet.length == 3){
+                console.log(pixelSet)
+                pixelString = ''
+                for (let pixel of pixelSet){
+                    pixelString += String(pixel[0]) + String(pixel[1])
+                }
+                console.log(pixelString)
+                imageName = document.getElementsByClassName('selectImage')[0].src
+                $.ajax({
+                    type: "POST",
+                    url: '/dum',   
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token}}',
+                        pixelPoint: JSON.stringify(pixelSet),
+                        pixelString: pixelString,
+                        imagePath: imageName,
+                    },  
+                    success: function redirect(){
+                      // window.location.replace('home')
+                    }
+                });
+                // dum();
+                return
+            }
+      }
 
 
 

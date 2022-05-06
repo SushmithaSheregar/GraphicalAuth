@@ -28,7 +28,7 @@ def dum(request):
     print(pixelString)
     imagePath = request.POST.get('imagePath', None).replace('http://127.0.0.1:8000', '.')
     steganographyEncrypt(imagePath, pixelString)
-    return JsonResponse({'mystring':"return this string"})
+    return JsonResponse({})
     
 
 def steganographyEncrypt(imagePath, pixelString):
@@ -70,7 +70,7 @@ def steganographyEncrypt(imagePath, pixelString):
         kl = (kl + 1) % len(key)
 
     print(x)
-    # cv2.imwrite("encrypted_img.jpg", x)
+    cv2.imwrite(imagePath, x)
     # os.startfile("encrypted_img.jpg")
     print("Data Hiding in Image completed successfully.")
     # x=cv2.imread(“encrypted_img.jpg")
