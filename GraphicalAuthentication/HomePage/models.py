@@ -7,5 +7,6 @@ class Details(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=30)
     
+    
 
 

@@ -103,4 +103,9 @@ def steganographyEncrypt(imagePath, pixelString):
     #     print("Thank you. EXITING.")
     
 def signin(request):
+    if request.method == "get":
+        stud = Details.objects.all()
+        print("Myoutput",stud)
+        return render(request, 'signin.html',{'stu': stud})
     return render(request, 'signin.html')
+    
