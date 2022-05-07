@@ -1,6 +1,7 @@
 import cv2
 import string
 import os
+import numpy as np
 
 d = {}
 c = {}
@@ -12,13 +13,14 @@ for i in range(255):
 # print(c)
 
 x = cv2.imread("GraphicalAuthentication/static/images/1.jpg")
+print(type(x))
 
 i = x.shape[0]
 j = x.shape[1]
 print(i, j)
 
 key = input("Enter key to edit(Security Key) : ")
-text = input("Enter text to hide : ")
+text = 'hello here'
 
 kl = 0
 tln = len(text)
@@ -37,6 +39,10 @@ for i in range(l):
     kl = (kl + 1) % len(key)
 
 print(x)
+arr = np.fromstring(x,dtype=int)
+print(np.fromstring(x,dtype=int).reshape(1447,2048,3))
+# print(arr)
+print(np.shape(x))
 # cv2.imwrite("encrypted_img.jpg", x)
 # os.startfile("encrypted_img.jpg")
 print("Data Hiding in Image completed successfully.")

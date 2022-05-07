@@ -2,7 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from HomePage.models import Details
 import cv2
-import blowfish
+from PIL import Image
+import blowfish, numpy as np
 
 
 # Create your views here.
@@ -25,13 +26,21 @@ def signup(request):
 
 def dum(request):
     pixelString = request.POST.get('pixelString', None)
-    print(pixelString)
+    username = request.POST.get('username', None)
+    email = request.POST.get('email', None)
+    phone = request.POST.get('phone', None)
+    # print(pixelString)
+    # print(phone)
     imagePath = request.POST.get('imagePath', None).replace('http://127.0.0.1:8000', '.')
-    steganographyEncrypt(imagePath, pixelString)
+    stegFileBinary = steganographyEncrypt(phone, imagePath, pixelString)
+    # stegFile = Image.open(stegFileName)
+    userObj = Details(img_index=0, Username=username, email=email, phone=phone, imageBytes=stegFileBinary)
+    userObj.save()
+    print(np.fromstring(Details.objects.filter(Username="rummaanzahmad")[0].imageBytes))
     return JsonResponse({})
     
 
-def steganographyEncrypt(imagePath, pixelString):
+def steganographyEncrypt(phone, imagePath, pixelString):
     d = {}
     c = {}
 
@@ -44,13 +53,13 @@ def steganographyEncrypt(imagePath, pixelString):
     j = x.shape[1]
     # print(i, j)
 
-    # key = bytes(pixelString[:4], 'utf-8')
-    # text = bytes(pixelString, 'utf-8')
+    # blowfishKey = bytes(pixelString[:4], 'utf-8')
+    # temPlainText = bytes(pixelString, 'utf-8')
     key = pixelString[:4]
     text = pixelString
     
-    # cipher = blowfish.Cipher(key=key)
-    # cipherText = b"".join(cipher.encrypt_block(text))
+    # cipher = blowfish.Cipher(key=blowfishKey)
+    # cipherText = b"".join(cipher.encrypt_ecb_cts(temPlainText))
     # cipherText = str(cipherText)
 
 
@@ -69,9 +78,9 @@ def steganographyEncrypt(imagePath, pixelString):
         m = (m + 1) % 3  
         kl = (kl + 1) % len(key)
 
-    print(x)
-    cv2.imwrite(imagePath, x)
-    # os.startfile("encrypted_img.jpg")
+    # print(x)
+    # cv2.imwrite('static/images/'+phone+".jpg", x)
+    return x.tostring()
     print("Data Hiding in Image completed successfully.")
     # x=cv2.imread(“encrypted_img.jpg")
 

@@ -3,430 +3,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Sign Up</title>
+    <title>Graphical Authentication | Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+    <link rel="shortcut icon" type="image/x-icon" href="../static/images/Group 1.png" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <style>
-      /*custom font*/
-      @import url(https://fonts.googleapis.com/css?family=Montserrat);
-
-      /*basic reset*/
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        height: 100%;
-        /* background-image: url("https://wallpaperaccess.com/full/1673318.jpg"); */
-        /* <!--        https://www.virtru.com/wp-content/uploads/2021/05/Beyond-the-Perimeter-Blog-Virtru.png --> */
-        /* a
-/* <!--        background: -webkit-linear-gradient(to left, #6441A5, #2a0845); Chrome 10-25, Safari 5.1-6--> */
-      }
-
-      body {
-        font-family: montserrat, arial, verdana;
-        background: transparent;
-      }
-
-      /*form styles*/
-      #msform {
-        text-align: center;
-        position: relative;
-        /* margin-top: 5%; */
-      }
-
-      #msform fieldset {
-        background: white;
-        border: 0 none;
-        border-radius: 2.5%;
-        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-        padding: 2.5% 2.5%;
-        box-sizing: border-box;
-        width: 55%;
-        margin: 1% 10%;
-
-        /*stacking fieldsets above each other*/
-        position: relative;
-      }
-
-      /*Hide all except first fieldset*/
-      #msform fieldset:not(:first-of-type) {
-        display: none;
-      }
-
-      /*inputs*/
-      #msform input,
-      #msform textarea {
-        padding: 1vw;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        width: 100%;
-        box-sizing: border-box;
-        /* font-family: montserrat; */
-        font-family: monospace;
-        color: #2c3e50;
-        font-size: 1vw;
-      }
-
-      #msform input:focus,
-      #msform textarea:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        border: 1px solid #ee0979;
-        outline-width: 0;
-        transition: All 0.5s ease-in;
-        -webkit-transition: All 0.5s ease-in;
-        -moz-transition: All 0.5s ease-in;
-        -o-transition: All 0.5s ease-in;
-      }
-
-      /*buttons*/
-      #msform .action-button {
-        width: 100px;
-        background: #ee0979;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 25px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-      }
-
-      #msform .action-button:hover,
-      #msform .action-button:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
-      }
-
-      #msform .action-button-previous {
-        width: 100px;
-        background: #c5c5f1;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 25px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-      }
-
-      #msform .action-button-previous:hover,
-      #msform .action-button-previous:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px #c5c5f1;
-      }
-
-      /*headings*/
-      .fs-title {
-        font-size: 1.5vw;
-        /* text-transform: uppercase; */
-        color: #2c3e50;
-        margin-bottom: 2%;
-        /* letter-spacing: px; */
-        font-weight: bold;
-      }
-
-      .fs-subtitle {
-        font-weight: normal;
-        font-size: 1vw;
-        color: #666;
-        font-family: monospace;
-        margin-bottom: 5%;
-      }
-
-      hr {
-        margin-bottom: 5%;
-      }
-
-      /*progressbar*/
-      #progressbar {
-        margin-bottom: 3%;
-        overflow: hidden;
-        /*CSS counters to number the steps*/
-        counter-reset: step;
-        /* width: 100%; */
-      }
-
-      /*li elements*/
-      #progressbar li {
-        list-style-type: none;
-        color: white;
-        text-transform: uppercase;
-        font-size: 11px;
-        width: 25%;
-        float: left;
-        position: relative;
-        letter-spacing: 1px;
-      }
-
-      #progressbar li:before {
-        content: counter(step);
-        counter-increment: step;
-        width: 24px;
-        height: 24px;
-        line-height: 26px;
-        display: block;
-        font-size: 14px; /*text size*/
-        color: #333;
-        background: white;
-        border-radius: 25px;
-        margin: 0 auto 10px auto;
-      }
-
-      /*progressbar connectors*/
-      #progressbar li:after {
-        content: "";
-        width: 100%;
-        height: 2px;
-        background: white;
-        position: absolute;
-        left: -50%;
-        top: 9px;
-        z-index: -1; /*put it behind the numbers*/
-      }
-
-      #progressbar li:first-child:after {
-        /*connector not needed before the first step*/
-        content: none;
-      }
-
-      /*marking active/completed steps green*/
-      /*The number of the step and the connector before it = green*/
-      #progressbar li.active:before,
-      #progressbar li.active:after {
-        background: #ee0979;
-        color: white;
-      }
-
-      /* Not relevant to this form */
-      .dme_link {
-        margin-top: 30px;
-        text-align: center;
-      }
-      .dme_link a {
-        background: #fff;
-        font-weight: bold;
-        color: #ee0979;
-        border: 0 none;
-        border-radius: 25px;
-        cursor: pointer;
-        padding: 5px 25px;
-        font-size: 12px;
-      }
-
-      .dme_link a:hover,
-      .dme_link a:focus {
-        background: #c5c5f1;
-        text-decoration: none;
-      }
-
-      /* .col-md-6{
-        display: flex;
-        justify-content: center;
-    } */
-
-      .row {
-        padding: 5% 25% 0% 25%;
-      }
-
-      /* .col-md-6{
-        width: 80%;
-    } */
-
-      .center-div {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-
-      .left-align {
-        display: flex;
-        justify-content: left;
-      }
-
-      .center-block {
-        display: inline-block;
-        justify-content: center;
-      }
-
-      .dum {
-        width: 33.33%;
-        height: 100px;
-        margin: 5px 5px;
-        background-color: white;
-      }
-
-      .single-img {
-        width: 65%;
-        height: 300px;
-        background-color: white;
-        margin-bottom: 2%;
-      }
-      @import url("https://fonts.googleapis.com/css?family=Exo:400,700");
-
-      * {
-        margin: 0px;
-        padding: 0px;
-      }
-
-      body {
-        font-family: "Exo", sans-serif;
-      }
-
-      .area {
-        background: #4059ad;
-        background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: -2;
-      }
-
-      .circles {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-
-      .circles li {
-        position: absolute;
-        display: block;
-        list-style: none;
-        width: 20px;
-        height: 20px;
-        background: rgba(255, 255, 255, 0.2);
-        animation: animate 25s linear infinite;
-        bottom: -150px;
-      }
-
-      .circles li:nth-child(1) {
-        left: 25%;
-        width: 80px;
-        height: 80px;
-        animation-delay: 0s;
-      }
-
-      .circles li:nth-child(2) {
-        left: 10%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 2s;
-        animation-duration: 12s;
-      }
-
-      .circles li:nth-child(3) {
-        left: 70%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 4s;
-      }
-
-      .circles li:nth-child(4) {
-        left: 40%;
-        width: 60px;
-        height: 60px;
-        animation-delay: 0s;
-        animation-duration: 18s;
-      }
-
-      .circles li:nth-child(5) {
-        left: 65%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 0s;
-      }
-
-      .circles li:nth-child(6) {
-        left: 75%;
-        width: 110px;
-        height: 110px;
-        animation-delay: 3s;
-      }
-
-      .circles li:nth-child(7) {
-        left: 35%;
-        width: 150px;
-        height: 150px;
-        animation-delay: 7s;
-      }
-
-      .circles li:nth-child(8) {
-        left: 50%;
-        width: 25px;
-        height: 25px;
-        animation-delay: 15s;
-        animation-duration: 45s;
-      }
-
-      .circles li:nth-child(9) {
-        left: 20%;
-        width: 15px;
-        height: 15px;
-        animation-delay: 2s;
-        animation-duration: 35s;
-      }
-
-      .circles li:nth-child(10) {
-        left: 85%;
-        width: 150px;
-        height: 150px;
-        animation-delay: 0s;
-        animation-duration: 11s;
-      }
-      img {
-        width: 100%; /* or any custom size */
-        height: 100%;
-        object-fit: contain;
-      }
-
-      .dum:focus {
-        border: 5px solid orange;
-        padding: 10px;
-      }
-
-      .indicator{
-        height: 10px;
-        width: 10px;
-        background-color: red;
-        border-radius: 20px;
-        margin-left: 5px;
-        margin-right: 5px;
-      }
-
-      @keyframes animate {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-          border-radius: 0;
-        }
-
-        100% {
-          transform: translateY(-1000px) rotate(720deg);
-          opacity: 0;
-          border-radius: 50%;
-        }
-      }
-
-      h2{
-        font-size: 20%;
-        font-family: monospace;
-        padding: 10px;
-      }
-
-      .single-img{
-          cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="static/css/signup.css">
   </head>
   <body>
     <div class="area">
@@ -458,15 +44,15 @@
           </ul>
           <!-- fieldsets -->
           <div class="center-div">
-            <fieldset style="width: 50%">
+            <fieldset >
               <div class="left-align">
                 <h2 class="fs-title">Details</h2>
               </div>
               <hr />
               <h3 class="fs-subtitle">Provide the Details given below.</h3>
-              <input type="text" name="Username"  placeholder="Username" />
-              <input type="email" name="email"  placeholder="Email" />
-              <input type="text" name="phone"  placeholder="Mobile No" />
+              <input type="text" name="Username" id="username" placeholder="Username" />
+              <input type="email" name="email"  id="email" placeholder="Email" />
+              <input type="text" name="phone"  id="phone" placeholder="Mobile No" />
               <input
                 type="button"
                 name="next"
@@ -475,7 +61,7 @@
                 onclick="shuffle()"
               />
             </fieldset>
-            <fieldset style="width: 70%">
+            <fieldset>
               <div class="left-align">
                 <h2 class="fs-title">Auth 1</h2>
               </div>
@@ -514,7 +100,6 @@
                   <img id="selectImage9" />
                 </div>
               </div>
-              
               <!--                <input type="text" name="twitter" placeholder="Twitter"/>-->
               <!--                <input type="text" name="facebook" placeholder="Facebook"/>-->
               <!--                <input type="text" name="gplus" placeholder="Google Plus"/>-->
@@ -525,7 +110,6 @@
                 class="previous action-button-previous"
                 value="Previous"
               />
-              <form id="msform1" action="/sign-in" method="get"></form>
               <input
                 type="button"
                 name="next"
@@ -533,9 +117,8 @@
                 value="Next"
                 onclick="myFunction1()"
               />
-            </form>
             </fieldset>
-            <fieldset style="width: 80%">
+            <fieldset style="width: 70%">
               <div class="left-align">
                 <h2 class="fs-title">Auth 2</h2>
               </div>
@@ -569,24 +152,7 @@
               />
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
             </fieldset>
-<<<<<<< HEAD
-            <fieldset style="width: 80%">
-              <input
-                type="button"
-                name="previous"
-                class="previous action-button-previous"
-                value="Previous"
-              />
-              <input
-                type="button"
-                name="next"
-                class="next action-button"
-                value="Submit"
-              />
-             </fieldset> 
-            
-=======
-            <fieldset style="width: 75%">
+            <fieldset style="width: 50%">
               <div class="center-div">
                 <h2>Authentication Completed</h2>
 
@@ -600,7 +166,6 @@
               />
               </a>
             </fieldset>
->>>>>>> f507137478462e27285f6d829483002a4dcc8658
           </div>
         </form>
       </div>
@@ -639,8 +204,13 @@
                 for (let pixel of pixelSet){
                     pixelString += String(pixel[0]) + String(pixel[1])
                 }
-                console.log(pixelString)
+                console.log('hello')
+                console.log(pixelString, 'hello')
                 imageName = document.getElementsByClassName('selectImage')[0].src
+                username = document.getElementById("username").value
+                email = document.getElementById("email").value
+                phone = document.getElementById("phone").value
+                console.log('hello')
                 $.ajax({
                     type: "POST",
                     url: '/dum',   
@@ -649,6 +219,9 @@
                         pixelPoint: JSON.stringify(pixelSet),
                         pixelString: pixelString,
                         imagePath: imageName,
+                        username: username,
+                        email: email,
+                        phone: phone
                     },  
                     success: function redirect(){
                       // window.location.replace('home')
@@ -758,8 +331,13 @@
                 for (let pixel of pixelSet){
                     pixelString += String(pixel[0]) + String(pixel[1])
                 }
-                console.log(pixelString)
+                console.log('hello')
+                console.log(pixelString, 'hello')
                 imageName = document.getElementsByClassName('selectImage')[0].src
+                username = document.getElementById("username").value
+                email = document.getElementById("email").value
+                phone = document.getElementById("phone").value
+                console.log('hello')
                 $.ajax({
                     type: "POST",
                     url: '/dum',   
@@ -768,6 +346,9 @@
                         pixelPoint: JSON.stringify(pixelSet),
                         pixelString: pixelString,
                         imagePath: imageName,
+                        username: username,
+                        email: email,
+                        phone: phone
                     },  
                     success: function redirect(){
                       // window.location.replace('home')
