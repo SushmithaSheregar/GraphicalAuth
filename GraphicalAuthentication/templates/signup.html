@@ -51,7 +51,9 @@
               <hr />
               <h3 class="fs-subtitle">Provide the Details given below.</h3>
               <input type="text" name="Username" id="username" placeholder="Username" />
+              <p class="err" id="username-error"></p>
               <input type="email" name="email"  id="email" placeholder="Email" />
+              <p class="err" id="email-error"></p>
               <input type="text" name="phone"  id="phone" placeholder="Mobile No" />
               <input
                 type="button"
@@ -153,12 +155,29 @@
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
             </fieldset>
             <fieldset style="width: 50%">
-              <div class="center-div">
-                <h2>Registering...</h2>
+              <div class="out-wrap1">
+                <div class="center-div">
+                  <h2>Registering...</h2>
+                </div>
+                <div class="center-div">
+                  <div class="progress">
+                    <div class="color"></div>
+                  </div>
+                </div>
               </div>
-              <div class="center-div">
-                <div class="progress">
-                  <div class="color"></div>
+              <div class="out-wrap2" style="display: none;">
+                <div class="center-div">
+                  <h2 id="f-message"></h2>
+                </div>
+                <div class="center-div" >
+                  <div class="wrapper"> 
+                    <svg class="animated-check" viewBox="0 0 24 24">
+                      <path d="M4.1 12.7L9 17.6 20.3 6.3" fill="none" /> 
+                    </svg>
+                  </div>
+                </div>
+                <div class="center-div">
+                  <h2 id="redirect-message"></h2>
                 </div>
               </div>
             </fieldset>
@@ -184,7 +203,6 @@
             if(pixelSet.length < 3){
                 pixelSet.push([imgX, imgY])
                 console.log(imgX, imgY);
-                // console.log(indicatorElems)
                 for(var i = 0; i< indicatorElems.length;i++){
                   // console.log(indicatorElems[i].style.backgroundColor)
                   if (indicatorElems[i].style.backgroundColor !== "green"){
@@ -197,26 +215,80 @@
             alert('Points Selected for Auth 2')
 
         };
-      //jQuery time
-      var current_fs, next_fs, previous_fs; //fieldsets
-      var left, opacity, scale; //fieldset properties which we will animate
-      var animating; //flag to prevent quick multi-click glitches
+
+      var current_fs, next_fs, previous_fs; 
+      var left, opacity, scale; 
+      var animating; 
+      var keepCheck = 0
+      var errMsg = ['Username should be at least 5 characters', 
+                    'Enter a Valid Email-Id', 
+                    'Enter Valid Phone Number']
+      
+      usernameInput = document.getElementById("username")
+      usernameInput.addEventListener("input", validateUsername)
+
+      emailInput = document.getElementById("email")
+      emailInput.addEventListener("input", validateEmail)
+
+      function validateUsername(){
+        usernameError = document.getElementById("username-error")
+        if(usernameInput.value.length < 5 || usernameInput.value === ''){
+          usernameError.textContent = errMsg[0]
+          usernameInput.style.border = "1px solid #ee0979"
+          return false
+        }
+        else{
+          usernameError.textContent = ''
+          usernameInput.style.border = "1.5px solid #39FF14"
+          return true
+        }
+      }
+      
+      function validateEmail(){
+        emailError = document.getElementById("email-error")
+        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        
+        if(re.test(emailInput.value)){
+          emailError.textContent = ''
+          emailInput.style.border = "1.5px solid #39FF14"
+          return true
+        }
+        else{
+          emailError.textContent = errMsg[1]
+          emailInput.style.border = "1px solid #ee0979"
+          return false
+        }
+      }
+
 
       $(".next").click(function () {
+        if(!validateEmail() && !validateUsername())
+          return
+        
+        console.log(new_pass, pixelSet)
+        
+        if(keepCheck) 
+          if(new_pass.length < 3) 
+            return
+        
+        if(keepCheck > 1) 
+          if(pixelSet.length < 3) 
+            return
+        keepCheck ++ 
+
+        
         if (animating) return false;
         animating = true;
 
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
 
-        //activate next step on progressbar using the index of next_fs
         $("#progressbar li")
           .eq($("fieldset").index(next_fs))
           .addClass("active");
 
-        //show the next fieldset
         next_fs.show();
-        //hide the current fieldset with style
+        
         current_fs.animate(
           { opacity: 0 },
           {
@@ -289,14 +361,12 @@
       });
 
       function goForward(){
+        console.log(pixelSet)
         if(pixelSet.length == 3){
-                console.log(pixelSet)
                 pixelString = ''
                 for (let pixel of pixelSet){
                     pixelString += String(pixel[0]) + String(pixel[1])
                 }
-                // console.log('hello')
-                // console.log(pixelString, 'hello')
                 imageName = document.getElementsByClassName('selectImage')[0].src
                 username = document.getElementById("username").value
                 email = document.getElementById("email").value
@@ -306,8 +376,6 @@
                 for (let seq of new_pass){
                     passwordKey += String(seq)
                 }
-                
-                // console.log('hello')
                 $.ajax({
                     type: "POST",
                     url: '/dum',   
@@ -322,63 +390,59 @@
                         passwordKey: passwordKey
                     },  
                     success: function redirect(){
-                      // window.location.replace('home')
                     }
                 });
-                // dum();
-                return
             }
       }
 
       progressPurple = document.getElementsByClassName("progress")[0];
       progressPurple.addEventListener("animationend", triggerFormSubmit, false);
-      // progressPurple.addEventListener("animationend", triggerSome, false);
-      // progressPurple.addEventListener("animationiteration", triggerSome, false);
 
       function triggerFormSubmit(event){
-        formFinal = document.getElementById("msform");
-        // console.log(formFinal)
-        formFinal.submit();
+      
+        progressAnimate = document.getElementsByClassName("out-wrap1")[0]
+        progressAnimate.style.display = "none"
+
+        tickAnimate = document.getElementsByClassName("out-wrap2")[0]
+        tickAnimate.style.display = "block"
+
+        document.getElementById("f-message").textContent = "Yay! "+usernameInput.value+" is a Registered User."
+
+        setTimeout(() => {
+          document.getElementById("redirect-message").textContent = "Redirecting in 5 seconds"  
+        }, 4000);
+        
+        setTimeout(() => {
+          formFinal = document.getElementById("msform");
+          formFinal.submit();
+        }, 10000);        
       }
-
-
-
-
 
       var password = new Set();
       var new_pass = [];
       var final_password = [];
       var password_array=[];
 
-
-
-
       function myFunction(id) {
         if (password.size > 2) {
           alert("password length exceeded");
         } else {
           password.add(id);
-          console.log(password);
-
           if (password.length > 1) console.log(password[1]);
         }
       }
 
-
-
       array = [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpeg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg",
-        "8.jpg",
-        "9.jpg",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
       ];
-
-
 
       function shuffle() {
         let currentIndex = array.length,
@@ -427,33 +491,28 @@
         ).src = `./static/images/${array[8]}`;
       }
 
-
-
-
       function myFunction1() {
-        
-
         console.log(array);
         const pass1 = [...password];
         console.log(pass1);
         for(let i=0;i<array.length;i++){
-            if(array[i]=="1.jpg")
+            if(array[i]=="1.png")
             password_array[i]=1;
-            else if(array[i]=="2.jpg")
+            else if(array[i]=="2.png")
             password_array[i]=2;
-            else if(array[i]=="3.jpg")
+            else if(array[i]=="3.png")
             password_array[i]=3;
-            else if(array[i]=="4.jpeg")
+            else if(array[i]=="4.png")
             password_array[i]=4;
-            else if(array[i]=="5.jpg")
+            else if(array[i]=="5.png")
             password_array[i]=5;
-            else if(array[i]=="6.jpg")
+            else if(array[i]=="6.png")
             password_array[i]=6;
-            else if(array[i]=="7.jpg")
+            else if(array[i]=="7.png")
             password_array[i]=7;
-            else if(array[i]=="8.jpg")
+            else if(array[i]=="8.png")
             password_array[i]=8;
-            else if(array[i]=="9.jpg")
+            else if(array[i]=="9.png")
             password_array[i]=9;
         }
         for(let i=0;i<pass1.length;i++){
@@ -464,19 +523,17 @@
         }
         console.log(new_pass);
         document.getElementById("myInput").value=new_pass;
-        
-        console.log(password_array);
 
         image_arr = [
-          "1.jpg",
-          "2.jpg",
-          "3.jpg",
-          "4.jpeg",
-          "5.jpg",
-          "6.jpg",
-          "7.jpg",
-          "8.jpg",
-          "9.jpg",
+          "1.png",
+          "2.png",
+          "3.png",
+          "4.png",
+          "5.png",
+          "6.png",
+          "7.png",
+          "8.png",
+          "9.png",
         ];
 
         document.getElementById(

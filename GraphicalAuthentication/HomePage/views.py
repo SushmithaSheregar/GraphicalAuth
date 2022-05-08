@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import Details
 import cv2
 from PIL import Image
-import blowfish, numpy as np, distance
+import blowfish, numpy as np, distance, hashlib, string, random
 
 
 # Create your views here.
@@ -12,6 +12,12 @@ import blowfish, numpy as np, distance
 
 def home(request):
     return render(request, 'homepage.html')
+
+def authWelcome(request):
+    return render(request, 'graphinfo.html')
+
+def failInformation(request):
+    return render(request, 'failauth.html')
 
 
 def signup(request):
@@ -29,7 +35,7 @@ def signup(request):
             pass
         # print("data entered")
 
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {'h':'hello'})
 
 
 def dum(request):
@@ -39,8 +45,9 @@ def dum(request):
     imagePath = request.POST.get('imagePath', None).replace('http://127.0.0.1:8000', '.')
     try:
         encry = steganographyEncrypt(phone, imagePath, pixelString, passwordKey)
-        encry2 = encry.split('./')
-        images = "/" + encry2[1]
+        # encry2 = encry.split('./')
+        images = encry
+        print(images)
         request.session['images'] = images
     except:
         pass
@@ -52,7 +59,7 @@ def dum(request):
     return JsonResponse({})
     
 
-def steganographyEncrypt(phone, imagePath, pixelString, passwordKey):
+def steganographyEncrypt(username, imagePath, pixelString, passwordKey):
     d = {}
     c = {}
 
@@ -88,38 +95,14 @@ def steganographyEncrypt(phone, imagePath, pixelString, passwordKey):
         m = m + 1
         m = (m + 1) % 3  
         kl = (kl + 1) % len(key)
+    
+    finalCombo = ''.join(random.choices(string.ascii_uppercase+string.digits, k = 20))
+    hashDum = hashlib.sha256(finalCombo.encode()).hexdigest()
+    newImagePath = 'static/images_db/'+hashDum+'.png'
+    cv2.imwrite(newImagePath, x)
+    print(newImagePath)
+    return newImagePath
 
-    cv2.imwrite(imagePath, x)
-    return imagePath
-
-    # x=cv2.imread(“encrypted_img.jpg")
-
-
-    # kl = 0
-    # tln = len(text)
-    # z = 0  # decides plane
-    # n = 0  # number of row
-    # m = 0  # number of column
-
-    # ch = int(input("\nEnter 1 to extract data from Image : "))
-
-    # if ch == 1:
-    #     key1 = input("\n\nRe enter key to extract text : ")
-    #     decrypt = ""
-
-    #     if key == key1:
-    #         for i in range(l):
-    #             decrypt += c[x[n, m, z] ^ d[key[kl]]]
-    #             n = n + 1
-    #             m = m + 1
-    #             m = (m + 1) % 3
-    #             kl = (kl + 1) % len(key)
-    #         print("Encrypted text was : ", decrypt)
-    #         # print("Actual Text: ", b"".join(cipher.decrypt_block(bytes(decrypt, 'utf-8'))))
-    #     else:
-    #         print("Key doesn't matched.")
-    # else:
-    #     print("Thank you. EXITING.")
     
 def signin(request):
     if request.method == "get":
@@ -136,14 +119,13 @@ def getImage(request):
         imagePath = Details.objects.all().filter(Username=receivedUsername).values()[0]["images"]
     except: imagePath = 0
     return JsonResponse({'image': imagePath})
-    # passwordKey = request.GET.get("passwordKey", None)
-    # print(passwordKey)
 
 
 def checkAuth(request):
     pixelString = request.POST.get('pixelString', None)
     passwordKey = request.POST.get('passwordKey', None)
     phone = request.POST.get('phone', None)
+    username = request.POST.get('username', None)
     imagePath = request.POST.get('imagePath', None).replace('http://127.0.0.1:8000', '.')
     
     key = passwordKey
@@ -160,12 +142,11 @@ def checkAuth(request):
 
     x=cv2.imread(imagePath)
 
-
     kl = 0
     tln = len(text)
-    z = 0  # decides plane
-    n = 0  # number of row
-    m = 0  # number of column
+    z = 0  
+    n = 0  
+    m = 0  
 
     decrypt = ""
     for i in range(l):
@@ -174,15 +155,19 @@ def checkAuth(request):
         m = m + 1
         m = (m + 1) % 3
         kl = (kl + 1) % len(key)
-    print("Encrypted text was : ", decrypt)
+    # print("Encrypted text was : ", decrypt)
 
     print(distance.nlevenshtein(decrypt, pixelString, method=1))
     if distance.nlevenshtein(decrypt, pixelString, method=1) < 0.5:
-        print('yes')
-    else: print('no')
-           # print("Actual Text: ", b"".join(cipher.decrypt_block(bytes(decrypt, 'utf-8'))))
-    return JsonResponse({})
-    
+        finalCombo = decrypt+username+key
+        hashDum = hashlib.sha256(finalCombo.encode()).hexdigest()
+        isEncrypted = {'encrypt': True, 'token': hashDum}
+    else: 
+        isEncrypted = {'encrypt': False}
+    return JsonResponse(isEncrypted)
+
+
+
 
 
     

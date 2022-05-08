@@ -12,15 +12,15 @@ for i in range(255):
 
 # print(c)
 
-x = cv2.imread("static/images/5.jpg")
-print(type(x))
+x = cv2.imread("static/images/signedin.jpg")
+print(x)
 
 i = x.shape[0]
 j = x.shape[1]
 print(i, j)
 
-key = input("Enter key to edit(Security Key) : ")
-text = 'hello here'
+key = '875'
+text = '12345678987654321'
 
 kl = 0
 tln = len(text)
@@ -38,11 +38,11 @@ for i in range(l):
     # whatever be the value of z , z=(z+1)%3 will always between 0,1,2 . The same concept is used for random number in dice and card games.
     kl = (kl + 1) % len(key)
 
-# cv2.imwrite("encrypted_img.jpg", x)
+cv2.imwrite("static/images/signedin.png", x)
 # os.startfile("encrypted_img.jpg")
 print("Data Hiding in Image completed successfully.")
-# x=cv2.imread(“encrypted_img.jpg")
-
+x=cv2.imread("static/images/signedin.png")
+print(x)
 
 kl = 0
 tln = len(text)

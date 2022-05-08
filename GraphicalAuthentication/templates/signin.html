@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Sign Up</title>
+    <title>Sign In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -44,8 +44,7 @@
             <li class="active">Details</li>
             <li>Auth 1</li>
             <li>Auth 2</li>
-            <li>Authenticated</li>
-            <!--                <li>Finish</li>-->
+            <li>Authenticate</li>
           </ul>
           <!-- fieldsets -->
            
@@ -121,12 +120,6 @@
               
               <input
                 type="button"
-                name="previous"
-                class="previous action-button-previous"
-                value="Previous"
-              />
-              <input
-                type="button"
                 name="next"
                 class="next action-button"
                 
@@ -156,12 +149,6 @@
               <!--                <input type="password" name="cpass" placeholder="Confirm Password"/>-->
               <input
                 type="button"
-                name="previous"
-                class="previous action-button-previous"
-                value="Previous"
-              />
-              <input
-                type="button"
                 name="next"
                 class="next action-button"
                 value="Sign In"
@@ -170,10 +157,18 @@
               
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
             </fieldset>
-            <fieldset style="width: 75%">
-                <img src="{% static 'images\signedin.jpg' %}" alt="Data is Power">
-              </fieldset>
-            
+            <fieldset style="width: 50%">
+              <div class="out-wrap1">
+                <div class="center-div">
+                  <h2>Authenticating...</h2>
+                </div>
+                <div class="center-div">
+                  <div class="progress">
+                    <div class="color"></div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
           </div>
         </form>
       </div>
@@ -287,15 +282,15 @@
       }
 
       array = [
-        "1.jpg",
-        "2.jpg",
-        "3.jpg",
-        "4.jpeg",
-        "5.jpg",
-        "6.jpg",
-        "7.jpg",
-        "8.jpg",
-        "9.jpg",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
       ];
 
       function shuffle() {
@@ -352,15 +347,15 @@
         const pass1 = [...password];
         console.log(pass1);
         for (let i = 0; i < array.length; i++) {
-          if (array[i] == "1.jpg") password_array[i] = 1;
-          else if (array[i] == "2.jpg") password_array[i] = 2;
-          else if (array[i] == "3.jpg") password_array[i] = 3;
-          else if (array[i] == "4.jpeg") password_array[i] = 4;
-          else if (array[i] == "5.jpg") password_array[i] = 5;
-          else if (array[i] == "6.jpg") password_array[i] = 6;
-          else if (array[i] == "7.jpg") password_array[i] = 7;
-          else if (array[i] == "8.jpg") password_array[i] = 8;
-          else if (array[i] == "9.jpg") password_array[i] = 9;
+          if (array[i] == "1.png") password_array[i] = 1;
+          else if (array[i] == "2.png") password_array[i] = 2;
+          else if (array[i] == "3.png") password_array[i] = 3;
+          else if (array[i] == "4.png") password_array[i] = 4;
+          else if (array[i] == "5.png") password_array[i] = 5;
+          else if (array[i] == "6.png") password_array[i] = 6;
+          else if (array[i] == "7.png") password_array[i] = 7;
+          else if (array[i] == "8.png") password_array[i] = 8;
+          else if (array[i] == "9.png") password_array[i] = 9;
         }
         for (let i = 0; i < pass1.length; i++) {
           var t = 0;
@@ -378,15 +373,15 @@
         }
 
         image_arr = [
-          "1.jpg",
-          "2.jpg",
-          "3.jpg",
-          "4.jpeg",
-          "5.jpg",
-          "6.jpg",
-          "7.jpg",
-          "8.jpg",
-          "9.jpg",
+          "1.png",
+          "2.png",
+          "3.png",
+          "4.png",
+          "5.png",
+          "6.png",
+          "7.png",
+          "8.png",
+          "9.png",
         ];
 
         username = document.getElementById("username").value
@@ -398,11 +393,9 @@
               username: username,
             },  
             success: function redirect(response){
-              document.getElementById("selectPixel").src = '.' + response.image
+              document.getElementById("selectPixel").src = response.image
             }
           });
-                
-        
       }
 
       pixelSet = []
@@ -435,6 +428,9 @@
 
         };
 
+        progressPurple = document.getElementsByClassName("progress")[0];
+        
+
         function goForward(){
         if(pixelSet.length == 3){
                 console.log(pixelSet)
@@ -452,7 +448,7 @@
                     passwordKey += String(seq)
                 }
                 
-                // console.log('hello')
+                console.log(passwordKey)
                 $.ajax({
                     type: "POST",
                     url: '/check-auth',   
@@ -463,8 +459,14 @@
                         username: username,
                         passwordKey: passwordKey
                     },  
-                    success: function redirect(){
-                      // window.location.replace('home')
+                    success: function redirect(response){
+                      res = response.encrypt
+                      progressPurple.addEventListener("animationend", function(){
+                        if(res) 
+                          window.location.href = 'ginfo'
+                        else 
+                          window.location.href = 'failinfo'
+                      });
                     }
                 });
                 // dum();

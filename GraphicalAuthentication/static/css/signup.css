@@ -47,12 +47,20 @@ html {
   padding: 2vh;
   border: 1px solid #ccc;
   border-radius: 0.5vh;
-  margin-bottom: 5vh;
+  margin-bottom: 1vh;
   width: 100%;
   box-sizing: border-box;
   font-family: 'Varela Round', sans-serif;
   color: #2c3e50;
   font-size: 2.2vh;
+}
+
+.err{
+    font-size: 1.75vh;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 3vh;
+    align-items:flex-start;
 }
 
 #msform input:focus,
@@ -420,7 +428,7 @@ img {
     width: 0px;
     height: 2vh;
     border-radius: 2vh;
-    animation: progres 8s linear;    
+    animation: progres 10s linear;    
 }
 @keyframes progres{
     0%{
@@ -438,4 +446,49 @@ img {
     100%{
         width: 100%;
     }
-};
+}
+
+.out-wrap1{
+    padding: 20vh 3vh;
+}
+
+.out-wrap2{
+    padding: 7vh 3vh;
+}
+
+#redirect-message{
+    color: #333;
+    font-size: 2.2vh;
+}
+
+.wrapper {
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 27vh;
+    padding: 3vh 3vh;
+    background-color: #4e54c8;
+}
+
+.animated-check {
+    height: 10em;
+    width: 10em
+}
+
+.animated-check path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 4;
+    stroke-dasharray: 23;
+    stroke-dashoffset: 23;
+    animation: draw 2s linear forwards;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0
+    }
+}
