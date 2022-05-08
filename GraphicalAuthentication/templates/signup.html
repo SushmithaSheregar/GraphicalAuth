@@ -39,7 +39,7 @@
             <li class="active">Details</li>
             <li>Auth 1</li>
             <li>Auth 2</li>
-            <li>Authenticated</li>
+            <li>Register</li>
             <!--                <li>Finish</li>-->
           </ul>
           <!-- fieldsets -->
@@ -52,6 +52,7 @@
               <h3 class="fs-subtitle">Provide the Details given below.</h3>
               <input type="text" name="Username" id="username" placeholder="Username" />
               <p class="err" id="username-error"></p>
+              <p class="err" id="username-exists-error"></p>
               <input type="email" name="email"  id="email" placeholder="Email" />
               <p class="err" id="email-error"></p>
               <input type="text" name="phone"  id="phone" placeholder="Mobile No" />
@@ -232,7 +233,29 @@
 
       function validateUsername(){
         usernameError = document.getElementById("username-error")
-        if(usernameInput.value.length < 5 || usernameInput.value === ''){
+        usernameExistsError = document.getElementById("username-exists-error")
+
+        $.ajax({
+            type: "GET",
+            url: '/check-user',   
+            data: {
+              username: usernameInput.value,
+            },  
+            success: function redirect(response){
+              if(response.exists){
+                usernameExistsError.textContent = 'Username Exists'
+                usernameInput.style.border = "1px solid #ee0979"
+                return false
+              }
+              else{
+                usernameExistsError.textContent = ''
+                return false
+
+              }
+            }
+          });
+
+        if(usernameInput.value.length < 5 || usernameInput.value === '' ){
           usernameError.textContent = errMsg[0]
           usernameInput.style.border = "1px solid #ee0979"
           return false

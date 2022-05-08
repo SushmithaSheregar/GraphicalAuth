@@ -63,6 +63,8 @@
                 placeholder="Username"
                 id="username"
               />
+              <p class="err" id="username-error"></p>
+              <p class="err" id="username-exists-error"></p>
               
               <input
                 type="button"
@@ -181,6 +183,10 @@
       var animating; //flag to prevent quick multi-click glitches
 
       $(".next").click(function () {
+
+        if(!validateUsername())
+          return
+
         if (animating) return false;
         animating = true;
 
@@ -265,6 +271,44 @@
           }
         );
       });
+
+      usernameInput = document.getElementById("username")
+      usernameInput.addEventListener("input", validateUsername)
+
+      function validateUsername(){
+        usernameError = document.getElementById("username-error")
+        usernameExistsError = document.getElementById("username-exists-error")
+
+        $.ajax({
+            type: "GET",
+            url: '/check-user',   
+            data: {
+              username: usernameInput.value,
+            },  
+            success: function redirect(response){
+              if(response.exists){
+                usernameExistsError.textContent = 'Username Exists'
+                usernameInput.style.border = "1px solid #ee0979"
+                return false
+              }
+              else{
+                usernameExistsError.textContent = ''
+                
+                return false
+              }
+            }
+          });
+          if(usernameInput.value === '' ){
+            usernameError.textContent = 'Username cannot be Blank'
+            usernameInput.style.border = "1px solid #ee0979"
+            return false
+          }
+          else{
+            usernameError.textContent = ''
+            usernameInput.style.border = "1.5px solid #39FF14"
+            return true
+          }
+      }
 
       var password = new Set();
       var new_pass = [];

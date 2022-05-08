@@ -17,5 +17,6 @@ urlpatterns = [
     path('dum', views.dum, name='Dum'),
     path('get-image', views.getImage, name='Dum'),
     path('check-auth', views.checkAuth, name='checkAuth'),
+    path('check-user', views.checkUser, name='checkUser'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

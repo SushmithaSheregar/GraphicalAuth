@@ -1,3 +1,4 @@
+from genericpath import exists
 from django.core.files import images
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -165,6 +166,15 @@ def checkAuth(request):
     else: 
         isEncrypted = {'encrypt': False}
     return JsonResponse(isEncrypted)
+
+
+def checkUser(request):
+    username = request.GET.get('username', None)
+    querySet = Details.objects.all().filter(Username=username).count()
+    if querySet:
+        exists = True
+    else: exists = False
+    return JsonResponse({'exists': exists})
 
 
 
