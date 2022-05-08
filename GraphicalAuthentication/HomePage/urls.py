@@ -1,5 +1,7 @@
 from django.urls import path
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -7,5 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sign-up', views.signup, name='Sign-up'),
     path('dum', views.dum, name='Dum'),
+    path('get-image', views.getImage, name='Dum'),
     path('sign-in', views.signin, name='signin'),
-]
+    path('check-auth', views.checkAuth, name='checkAuth'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

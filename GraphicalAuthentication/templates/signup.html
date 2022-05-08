@@ -154,17 +154,13 @@
             </fieldset>
             <fieldset style="width: 50%">
               <div class="center-div">
-                <h2>Authentication Completed</h2>
-
+                <h2>Registering...</h2>
               </div>
-              <a href="homepage.html">
-              <input
-                type="submit"
-                name="submit"
-                class="submit action-button"
-                value="Home"
-              />
-              </a>
+              <div class="center-div">
+                <div class="progress">
+                  <div class="color"></div>
+                </div>
+              </div>
             </fieldset>
           </div>
         </form>
@@ -198,39 +194,7 @@
                 }
                 return
             }
-            if(pixelSet.length == 3){
-                console.log(pixelSet)
-                pixelString = ''
-                for (let pixel of pixelSet){
-                    pixelString += String(pixel[0]) + String(pixel[1])
-                }
-                console.log('hello')
-                console.log(pixelString, 'hello')
-                imageName = document.getElementsByClassName('selectImage')[0].src
-                username = document.getElementById("username").value
-                email = document.getElementById("email").value
-                phone = document.getElementById("phone").value
-                console.log('hello')
-                $.ajax({
-                    type: "POST",
-                    url: '/dum',   
-                    data: {
-                        csrfmiddlewaretoken: '{{ csrf_token}}',
-                        pixelPoint: JSON.stringify(pixelSet),
-                        pixelString: pixelString,
-                        imagePath: imageName,
-                        username: username,
-                        email: email,
-                        phone: phone
-                    },  
-                    success: function redirect(){
-                      // window.location.replace('home')
-                    }
-                });
-                // dum();
-                return
-            }
-            alert('All Points Selected')
+            alert('Points Selected for Auth 2')
 
         };
       //jQuery time
@@ -331,13 +295,19 @@
                 for (let pixel of pixelSet){
                     pixelString += String(pixel[0]) + String(pixel[1])
                 }
-                console.log('hello')
-                console.log(pixelString, 'hello')
+                // console.log('hello')
+                // console.log(pixelString, 'hello')
                 imageName = document.getElementsByClassName('selectImage')[0].src
                 username = document.getElementById("username").value
                 email = document.getElementById("email").value
                 phone = document.getElementById("phone").value
-                console.log('hello')
+
+                passwordKey = ''
+                for (let seq of new_pass){
+                    passwordKey += String(seq)
+                }
+                
+                // console.log('hello')
                 $.ajax({
                     type: "POST",
                     url: '/dum',   
@@ -348,7 +318,8 @@
                         imagePath: imageName,
                         username: username,
                         email: email,
-                        phone: phone
+                        phone: phone,
+                        passwordKey: passwordKey
                     },  
                     success: function redirect(){
                       // window.location.replace('home')
@@ -357,6 +328,17 @@
                 // dum();
                 return
             }
+      }
+
+      progressPurple = document.getElementsByClassName("progress")[0];
+      progressPurple.addEventListener("animationend", triggerFormSubmit, false);
+      // progressPurple.addEventListener("animationend", triggerSome, false);
+      // progressPurple.addEventListener("animationiteration", triggerSome, false);
+
+      function triggerFormSubmit(event){
+        formFinal = document.getElementById("msform");
+        // console.log(formFinal)
+        formFinal.submit();
       }
 
 

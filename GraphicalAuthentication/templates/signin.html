@@ -62,6 +62,7 @@
                 name="Username"
                 required
                 placeholder="Username"
+                id="username"
               />
               
               <input
@@ -134,15 +135,20 @@
                 
               />
             </fieldset>
-            <fieldset style="width: 80%">
+            <fieldset style="width: 70%">
               <div class="left-align">
                 <h2 class="fs-title">Auth 2</h2>
               </div>
               <hr />
               <h3 class="fs-subtitle">Select 3 points from the Grid</h3>
               <div class="center-div">
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+                <div class="indicator"></div>
+              </div>
+              <div class="center-div">
                 <div class="single-img">
-                  <img id="selectPixel" />
+                  <img class="selectImage" id="selectPixel" />
                 </div>
               </div>
               <!--                <input type="text" name="email" placeholder="Email"/>-->
@@ -159,6 +165,7 @@
                 name="next"
                 class="next action-button"
                 value="Sign In"
+                onclick="goForward()"
               />
               
               <!-- <input type="submit" name="submit" class="submit action-button" value="Submit"/> -->
@@ -365,6 +372,11 @@
 
         console.log(password_array);
 
+        passwordKey = ''
+        for (let seq of new_pass){
+          passwordKey += String(seq)
+        }
+
         image_arr = [
           "1.jpg",
           "2.jpg",
@@ -377,9 +389,87 @@
           "9.jpg",
         ];
 
-        document.getElementById(
-          "selectPixel"
-        ).src = `./static/images/${array[0]}`;
+        username = document.getElementById("username").value
+
+        $.ajax({
+            type: "GET",
+            url: '/get-image',   
+            data: {
+              username: username,
+            },  
+            success: function redirect(response){
+              document.getElementById("selectPixel").src = '.' + response.image
+            }
+          });
+                
+        
+      }
+
+      pixelSet = []
+    
+        selectPixel.onclick = function(e) {
+            var ratioX = e.target.naturalWidth / e.target.offsetWidth;
+            var ratioY = e.target.naturalHeight / e.target.offsetHeight;
+
+            var domX = e.x + window.pageXOffset - e.target.offsetLeft;
+            var domY = e.y + window.pageYOffset - e.target.offsetTop;
+
+            var imgX = Math.round(domX * ratioX);
+            var imgY = Math.round(domY * ratioY);
+            var indicatorElems = document.getElementsByClassName("indicator")
+
+            if(pixelSet.length < 3){
+                pixelSet.push([imgX, imgY])
+                console.log(imgX, imgY);
+                // console.log(indicatorElems)
+                for(var i = 0; i< indicatorElems.length;i++){
+                  // console.log(indicatorElems[i].style.backgroundColor)
+                  if (indicatorElems[i].style.backgroundColor !== "green"){
+                    indicatorElems[i].style.backgroundColor = "green"
+                    break
+                  }
+                }
+                return
+            }
+            alert('Points Selected for Auth 2')
+
+        };
+
+        function goForward(){
+        if(pixelSet.length == 3){
+                console.log(pixelSet)
+                pixelString = ''
+                for (let pixel of pixelSet){
+                    pixelString += String(pixel[0]) + String(pixel[1])
+                }
+                // console.log('hello')
+                // console.log(pixelString, 'hello')
+                imageName = document.getElementsByClassName('selectImage')[0].src
+                username = document.getElementById("username").value
+
+                passwordKey = ''
+                for (let seq of new_pass){
+                    passwordKey += String(seq)
+                }
+                
+                // console.log('hello')
+                $.ajax({
+                    type: "POST",
+                    url: '/check-auth',   
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token}}',
+                        pixelString: pixelString,
+                        imagePath: imageName,
+                        username: username,
+                        passwordKey: passwordKey
+                    },  
+                    success: function redirect(){
+                      // window.location.replace('home')
+                    }
+                });
+                // dum();
+                return
+            }
       }
 
       $(".submit").click(function() {
